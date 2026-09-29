@@ -1409,6 +1409,8 @@
     }
 
     .project-actions {
+      position: relative;
+      z-index: 1;
       display: flex;
       gap: 10px;
       margin-top: auto;
@@ -2450,7 +2452,7 @@
           'Real-time predictions',
           'Business insights'
         ],
-        liveDemo: '#',
+        liveDemo: 'https://churn-chi.vercel.app/',
         github: '#',
         category: 'Full Stack + AI'
       },
@@ -2524,7 +2526,7 @@
           ${hasProjectUrl(project.liveDemo) || hasProjectUrl(project.github) ? `
             <div class="project-actions">
               ${hasProjectUrl(project.liveDemo) ? `
-                <a class="mini-btn" href="${project.liveDemo}" target="_blank" rel="noopener noreferrer" aria-label="Live demo for ${project.title}" onclick="event.stopPropagation();">
+                <a class="mini-btn" href="${project.liveDemo}" target="_blank" rel="noopener noreferrer" title="Live Demo" aria-label="Live demo for ${project.title}" onclick="event.stopPropagation();">
                   <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
                 </a>` : ''}
               ${hasProjectUrl(project.github) ? `
@@ -2547,6 +2549,7 @@
         });
 
         card.addEventListener('keydown', (event) => {
+          if (event.target.closest('a')) return;
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             const index = Number(card.dataset.index);
